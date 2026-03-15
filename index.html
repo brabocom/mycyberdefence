@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мій КіберЗахист — Курс з особистої кібербезпеки</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060a14;
+    --bg2: #0b1020;
+    --surface: #0e1628;
+    --border: rgba(0,200,255,0.12);
+    --cyan: #00c8ff;
+    --cyan-dim: rgba(0,200,255,0.15);
+    --amber: #f5a623;
+    --amber-dim: rgba(245,166,35,0.15);
+    --white: #e8edf8;
+    --muted: #5a6a8a;
+    --danger: #ff3e5e;
+    --font-head: 'Syne', sans-serif;
+    --font-ui: 'Rajdhani', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font-ui);
+    font-size: 17px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── GRID TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(6,10,20,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-head);
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--cyan);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-logo .shield {
+    width: 28px; height: 28px;
+    background: var(--cyan);
+    clip-path: polygon(50% 0%, 100% 20%, 100% 60%, 50% 100%, 0% 60%, 0% 20%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    color: var(--bg);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+
+  .nav-cta {
+    background: var(--amber);
+    color: #000;
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: #ffc94a; transform: scale(1.03); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 60px 80px;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(0,200,255,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute;
+    bottom: -100px; left: 20%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(245,166,35,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 720px;
+    z-index: 2;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--cyan);
+    background: var(--cyan-dim);
+    border: 1px solid rgba(0,200,255,0.3);
+    padding: 6px 14px;
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+  }
+
+  .hero-badge::before {
+    content: '▶';
+    font-size: 8px;
+    animation: blink 1.2s step-end infinite;
+  }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  h1 {
+    font-family: var(--font-head);
+    font-size: clamp(48px, 7vw, 86px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -2px;
+    margin-bottom: 12px;
+  }
+
+  h1 span { color: var(--cyan); }
+
+  .hero-sub {
+    font-family: var(--font-head);
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    color: var(--amber);
+    letter-spacing: -0.5px;
+    margin-bottom: 28px;
+  }
+
+  .hero-threats {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 44px;
+  }
+
+  .threat-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: rgba(232,237,248,0.6);
+    animation: fadeSlide 0.6s both;
+  }
+
+  .threat-line:nth-child(2) { animation-delay: 0.15s; }
+  .threat-line:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .threat-icon {
+    width: 6px; height: 6px;
+    background: var(--danger);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--danger);
+    flex-shrink: 0;
+  }
+
+  .hero-stat-bar {
+    display: flex;
+    gap: 40px;
+    padding: 24px 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--cyan);
+    margin-bottom: 44px;
+  }
+
+  .stat-item { display: flex; flex-direction: column; gap: 4px; }
+
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--cyan);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  .hero-buttons { display: flex; gap: 16px; align-items: center; }
+
+  .btn-primary {
+    background: var(--amber);
+    color: #000;
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 16px 40px;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #ffc94a; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,166,35,0.3); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    padding: 15px 32px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* ── HERO VISUAL ── */
+  .hero-visual {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 380px;
+    opacity: 0.9;
+  }
+
+  .terminal {
+    background: rgba(11,16,32,0.9);
+    border: 1px solid rgba(0,200,255,0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(0,200,255,0.1), 0 40px 80px rgba(0,0,0,0.5);
+  }
+
+  .terminal-bar {
+    background: var(--surface);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f56; } .dot-y { background: #ffbd2e; } .dot-g { background: #27c93f; }
+
+  .terminal-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: 8px;
+  }
+
+  .terminal-body {
+    padding: 20px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .t-prompt { color: var(--cyan); }
+  .t-cmd { color: var(--white); }
+  .t-ok { color: #27c93f; }
+  .t-warn { color: var(--amber); }
+  .t-err { color: var(--danger); }
+  .t-dim { color: var(--muted); }
+
+  .cursor {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--cyan);
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+  }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+
+  .section-body { color: rgba(232,237,248,0.65); max-width: 560px; font-size: 16px; }
+
+  /* ── RESULTS ── */
+  .results {
+    padding: 100px 60px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 60px;
+  }
+
+  .results-list { display: flex; flex-direction: column; gap: 14px; }
+
+  .result-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--cyan);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .result-item:hover { border-color: var(--cyan); background: rgba(0,200,255,0.05); }
+
+  .result-icon {
+    color: var(--cyan);
+    font-size: 18px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .result-text { font-size: 15px; font-weight: 500; }
+
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 40px;
+    position: relative;
+  }
+
+  .about-card::before {
+    content: '"';
+    position: absolute;
+    top: -20px; left: 30px;
+    font-family: var(--font-head);
+    font-size: 80px;
+    color: var(--cyan);
+    opacity: 0.15;
+    line-height: 1;
+  }
+
+  .about-text { font-size: 15px; color: rgba(232,237,248,0.75); margin-bottom: 20px; }
+
+  .about-modules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .module-chip {
+    background: var(--cyan-dim);
+    border: 1px solid rgba(0,200,255,0.2);
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--cyan);
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* ── AUDIENCE ── */
+  .audience {
+    padding: 100px 60px;
+  }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .audience-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .audience-card:hover { transform: translateY(-4px); border-color: rgba(0,200,255,0.3); }
+
+  .audience-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+  }
+
+  .audience-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .audience-title {
+    font-family: var(--font-head);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+
+  .audience-desc { font-size: 14px; color: rgba(232,237,248,0.6); line-height: 1.6; }
+
+  /* ── AUTHOR ── */
+  .author {
+    padding: 100px 60px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .author-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .author-name {
+    font-family: var(--font-head);
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 6px;
+  }
+
+  .author-role {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .author-text { font-size: 15px; color: rgba(232,237,248,0.7); margin-bottom: 16px; }
+
+  .author-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .author-stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .author-stat-num {
+    font-family: var(--font-head);
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--amber);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .author-stat-label { font-size: 13px; color: var(--muted); }
+
+  .author-photo-wrapper {
+    position: relative;
+  }
+
+  .author-photo-frame {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .author-photo-frame img {
+    width: 100%;
+    display: block;
+    filter: grayscale(30%) contrast(1.1);
+  }
+
+  .author-photo-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,200,255,0.15) 0%, transparent 60%);
+  }
+
+  .author-photo-border {
+    position: absolute;
+    top: 16px; left: 16px; right: -16px; bottom: -16px;
+    border: 2px solid var(--cyan);
+    z-index: -1;
+    opacity: 0.3;
+  }
+
+  /* ── TOPICS ── */
+  .topics {
+    padding: 100px 60px;
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    margin-top: 60px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .topic-card {
+    background: var(--bg);
+    padding: 28px 24px;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .topic-card:hover { background: var(--surface); }
+  .topic-card:hover .topic-icon { color: var(--amber); }
+
+  .topic-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: var(--cyan);
+    transition: color 0.2s;
+  }
+
+  .topic-name {
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .topic-desc { font-size: 13px; color: rgba(232,237,248,0.55); line-height: 1.55; }
+
+  /* ── FAQ ── */
+  .faq {
+    padding: 100px 60px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+
+  .faq-list {
+    max-width: 760px;
+    margin: 60px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-family: var(--font-ui);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 22px 28px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    transition: color 0.2s;
+  }
+  .faq-q:hover { color: var(--cyan); }
+
+  .faq-arrow {
+    color: var(--cyan);
+    font-size: 18px;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-arrow { transform: rotate(45deg); }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .faq-a-inner {
+    padding: 0 28px 22px;
+    font-size: 15px;
+    color: rgba(232,237,248,0.65);
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 120px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0,200,255,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .cta-title {
+    font-family: var(--font-head);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+  }
+
+  .cta-sub { color: rgba(232,237,248,0.6); max-width: 480px; margin: 0 auto 44px; font-size: 16px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 48px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--cyan); }
+
+  .footer-social { display: flex; gap: 12px; }
+
+  .social-btn {
+    width: 36px; height: 36px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .social-btn:hover { border-color: var(--amber); color: var(--amber); }
+
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── SCAN LINE ANIMATION ── */
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  .scanline {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0,200,255,0.15), transparent);
+    animation: scanline 8s linear infinite;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-visual { display: none; }
+    .results { padding: 70px 24px; }
+    .results-grid { grid-template-columns: 1fr; gap: 40px; }
+    .audience { padding: 70px 24px; }
+    .audience-grid { grid-template-columns: 1fr; }
+    .author { padding: 70px 24px; }
+    .author-inner { grid-template-columns: 1fr; gap: 40px; }
+    .topics { padding: 70px 24px; }
+    .topics-grid { grid-template-columns: repeat(2, 1fr); }
+    .faq { padding: 70px 24px; }
+    .cta-section { padding: 80px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+    .hero-stat-bar { flex-direction: column; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="shield">⬡</div>
+    МійКіберЗахист
+  </div>
+  <ul class="nav-links">
+    <li><a href="#results">Курс</a></li>
+    <li><a href="#audience">Для кого</a></li>
+    <li><a href="#author">Автор</a></li>
+    <li><a href="#topics">Теми</a></li>
+    <li><a href="#faq">Питання</a></li>
+  </ul>
+  <button class="nav-cta">Розпочати</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">КУРС З ОСОБИСТОЇ КІБЕРБЕЗПЕКИ</div>
+
+    <h1>МІЙ<br><span>КІБЕР</span><br>ЗАХИСТ</h1>
+    <p class="hero-sub">Захисти своє цифрове життя вже сьогодні</p>
+
+    <div class="hero-threats">
+      <div class="threat-line">
+        <span class="threat-icon"></span>
+        Щодня тисячі людей втрачають доступ до акаунтів
+      </div>
+      <div class="threat-line">
+        <span class="threat-icon"></span>
+        Крадуть гроші з карток і зламують пошту
+      </div>
+      <div class="threat-line">
+        <span class="threat-icon"></span>
+        Більшість не знає як захиститися
+      </div>
+    </div>
+
+    <div class="hero-stat-bar">
+      <div class="stat-item">
+        <span class="stat-num">39с</span>
+        <span class="stat-label">Кожні 39 секунд — кібератака</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">$1000+</span>
+        <span class="stat-label">Середні збитки від одного інциденту</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">95%</span>
+        <span class="stat-label">Атак — через людський фактор</span>
+      </div>
+    </div>
+
+    <div class="hero-buttons">
+      <a href="#results" class="btn-primary">Дізнатися більше</a>
+      <a href="#topics" class="btn-ghost">Теми курсу →</a>
+    </div>
+  </div>
+
+  <!-- TERMINAL VISUAL -->
+  <div class="hero-visual">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="terminal-title">security_scan.sh</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">▶ </span><span class="t-cmd">init_cyber_protection</span></div>
+        <div><span class="t-dim">// Сканування вразливостей...</span></div>
+        <br>
+        <div><span class="t-err">✗ </span><span class="t-cmd">Паролі: СЛАБКІ</span></div>
+        <div><span class="t-err">✗ </span><span class="t-cmd">2FA: ВИМКНЕНО</span></div>
+        <div><span class="t-err">✗ </span><span class="t-cmd">VPN: НЕ НАЛАШТОВАНО</span></div>
+        <div><span class="t-warn">⚠ </span><span class="t-cmd">Резерв копій: РІДКО</span></div>
+        <br>
+        <div><span class="t-dim">// Після курсу:</span></div>
+        <br>
+        <div><span class="t-ok">✓ </span><span class="t-cmd">Паролі: ЗАХИЩЕНО</span></div>
+        <div><span class="t-ok">✓ </span><span class="t-cmd">2FA: АКТИВНО</span></div>
+        <div><span class="t-ok">✓ </span><span class="t-cmd">VPN: НАЛАШТОВАНО</span></div>
+        <div><span class="t-ok">✓ </span><span class="t-cmd">Резерв: 3-2-1</span></div>
+        <br>
+        <div><span class="t-prompt">▶ </span><span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results" id="results">
+  <div class="section-label">// РЕЗУЛЬТАТ НАВЧАННЯ</div>
+  <h2 class="section-title">Після курсу<br>ти зможеш:</h2>
+
+  <div class="results-grid">
+    <div class="results-list">
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Розпізнавати найпоширеніші кіберзагрози</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Захищати акаунти від злому</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Створювати та зберігати надійні паролі</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Безпечно користуватись соціальними мережами</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Захищати пристрої від вірусів та шпигунських програм</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Налаштовувати VPN та фаєрвол</span></div>
+    </div>
+
+    <div class="results-list">
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Робити резервні копії та відновлювати дані</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Організовувати безпеку домашньої мережі</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Купувати онлайн безпечно, уникаючи шахрайства</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Контролювати свою цифрову гігієну щодня</span></div>
+    </div>
+  </div>
+
+  <div style="margin-top: 60px;">
+    <div class="about-card">
+      <p class="about-text">Кожен урок — незалежний, можна обирати тему, яка потрібна саме зараз. Конспект із чеклістами та порадами на всі випадки.</p>
+      <p class="about-text">Курс створено спеціально для звичайних користувачів — без складної термінології та технічного жаргону. Прості й практичні інструменти.</p>
+      <div class="about-modules">
+        <div class="module-chip">Загрози</div>
+        <div class="module-chip">Інструменти захисту</div>
+        <div class="module-chip">Технології</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="audience" id="audience">
+  <div class="section-label">// ДЛЯ КОГО</div>
+  <h2 class="section-title">Курс для тебе,<br>якщо ти...</h2>
+
+  <div class="audience-grid">
+    <div class="audience-card">
+      <div class="audience-num">01 //</div>
+      <div class="audience-title">Студент, підприємець,<br>бухгалтер, юрист</div>
+      <p class="audience-desc">Навчишся застосовувати практики цифрової безпеки в повсякденному житті. Захистиш бізнес-листування та конфіденційну інформацію клієнтів.</p>
+    </div>
+
+    <div class="audience-card">
+      <div class="audience-num">02 //</div>
+      <div class="audience-title">Батько, вчитель або<br>старше покоління</div>
+      <p class="audience-desc">Отримаєш практичні поради щодо батьківського контролю та безпеки дітей онлайн. Прості інструкції для безпечного спілкування.</p>
+    </div>
+
+    <div class="audience-card">
+      <div class="audience-num">03 //</div>
+      <div class="audience-title">Активний користувач<br>смартфону і мережі</div>
+      <p class="audience-desc">Онлайн-шопери, блогери, геймери, власники крипто-активів — захистиш рахунки, акаунти та цифрові активи від зловмисників.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AUTHOR -->
+<section class="author" id="author">
+  <div class="author-inner">
+    <div>
+      <div class="section-label">// АВТОР КУРСУ</div>
+      <h2 class="author-name">Богдан<br>Браїлов</h2>
+      <div class="author-role">Експерт з кібербезпеки</div>
+      <p class="author-text">Понад 20 років досвіду у сфері IT, з яких 15 — у галузі кібербезпеки для урядових організацій та великого бізнесу.</p>
+      <p class="author-text">Переконаний, що захист у цифровому світі не повинен бути привілеєм технічних експертів. Тому створив курс, де складні речі пояснюються простою мовою.</p>
+
+      <div class="author-stats">
+        <div class="author-stat">
+          <div class="author-stat-num">20+</div>
+          <div class="author-stat-label">Років у сфері IT</div>
+        </div>
+        <div class="author-stat">
+          <div class="author-stat-num">15</div>
+          <div class="author-stat-label">Років у кібербезпеці</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="author-photo-wrapper">
+      <div class="author-photo-frame">
+        <!-- Placeholder for photo -->
+        <div style="width:100%;height:400px;background:linear-gradient(135deg,var(--surface),var(--bg2));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;border:1px solid var(--border);">
+          <div style="font-size:80px;opacity:0.15;">👤</div>
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:2px;">ФОТО АВТОРА</span>
+        </div>
+      </div>
+      <div class="author-photo-border"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOPICS -->
+<section class="topics" id="topics">
+  <div class="section-label">// ТЕМИ КУРСУ</div>
+  <h2 class="section-title">Що розглядається<br>в курсі</h2>
+
+  <div class="topics-grid">
+    <div class="topic-card">
+      <div class="topic-icon">🔍</div>
+      <div class="topic-name">Вразливості</div>
+      <p class="topic-desc">Як зловмисники знаходять слабкі місця. Основні типи вразливостей та методи їх виявлення.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">🦠</div>
+      <div class="topic-name">Малварь</div>
+      <p class="topic-desc">Віруси, трояни та шпигунські програми. Механізми шкідливого впливу та реагування.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">🎣</div>
+      <div class="topic-name">Фішинг</div>
+      <p class="topic-desc">Як не потрапити на гачок шахраїв. Психологічні прийоми маніпуляцій та технічні ознаки.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">⚡</div>
+      <div class="topic-name">Злам</div>
+      <p class="topic-desc">Приклади атак та методи протидії. Реальні кейси компрометації систем.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">🌐</div>
+      <div class="topic-name">Браузери</div>
+      <p class="topic-desc">Налаштування приватності та блокування трекінгу. Корисні розширення та інкогніто.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">🔑</div>
+      <div class="topic-name">Паролі</div>
+      <p class="topic-desc">Менеджери паролів та багатофакторна автентифікація. Надійне зберігання облікових даних.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">🛡️</div>
+      <div class="topic-name">Антивірус</div>
+      <p class="topic-desc">Як обрати та правильно використовувати. Критерії вибору між безкоштовними та платними.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">🔒</div>
+      <div class="topic-name">VPN</div>
+      <p class="topic-desc">Коли потрібен і як налаштувати. Критерії вибору надійного VPN-сервісу.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">🔥</div>
+      <div class="topic-name">Фаєрвол</div>
+      <p class="topic-desc">Перша лінія оборони в інтернеті. Правила фільтрації трафіку та блокування загроз.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">💻</div>
+      <div class="topic-name">Віртуальні машини</div>
+      <p class="topic-desc">Безпечне тестування та робота з файлами. Ізольоване середовище для підозрілих об'єктів.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">🔐</div>
+      <div class="topic-name">Шифрування</div>
+      <p class="topic-desc">Захист файлів, дисків та повідомлень. Практичні інструменти для конфіденційності.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">💾</div>
+      <div class="topic-name">Резервне копіювання</div>
+      <p class="topic-desc">Автоматичні бекапи за принципом 3-2-1. Схема резервування без втрати важливого.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">📡</div>
+      <div class="topic-name">Домашня мережа</div>
+      <p class="topic-desc">Налаштування роутера, Wi-Fi та гостьових мереж. Зміна заводських паролів та шифрування.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">📱</div>
+      <div class="topic-name">Розумні пристрої</div>
+      <p class="topic-desc">Камери, колонки та IoT-девайси. Налаштування приватності та ізоляція в окрему мережу.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">📲</div>
+      <div class="topic-name">Додатки</div>
+      <p class="topic-desc">Які дозволи давати, а які — ні. Аналіз запитів на доступ до даних.</p>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">🛒</div>
+      <div class="topic-name">Шопінг</div>
+      <p class="topic-desc">Безпечні онлайн-покупки та захист картки. Розпізнавання фішингових сайтів.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div style="text-align:center;">
+    <div class="section-label" style="text-align:center;">// ЧАСТІ ЗАПИТАННЯ</div>
+    <h2 class="section-title">FAQ</h2>
+  </div>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Чи потрібні технічні знання?
+        <span class="faq-arrow">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Ні. Курс створено спеціально для звичайних користувачів. Усі терміни пояснюються простою мовою, без технічного жаргону. Якщо ти вмієш користуватись смартфоном — цього достатньо.</div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Скільки часу потрібно на навчання?
+        <span class="faq-arrow">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Кожен урок незалежний і займає від 15 до 40 хвилин. Ти можеш вчитися у власному темпі та обирати лише ті теми, які потрібні прямо зараз.</div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Чи залишиться мені доступ після завершення?
+        <span class="faq-arrow">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Так. Після придбання ти отримуєш довічний доступ до всіх матеріалів курсу, включаючи майбутні оновлення.</div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Чи допоможе курс захистити бізнес?
+        <span class="faq-arrow">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Курс орієнтований насамперед на особисту безпеку, але більшість практик прямо застосовні для захисту малого бізнесу, фрілансерів та команд.</div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Чим цей курс відрізняється від безкоштовних статей?
+        <span class="faq-arrow">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Це структурована система знань, а не розрізнені поради. Кожна тема — це практичний чекліст, конкретні кроки та реальні інструменти. Не потрібно збирати інформацію по різних джерелах.</div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Куди я можу звернутись якщо виникли питання?
+        <span class="faq-arrow">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Ти завжди можеш написати через форму зворотнього зв'язку на сайті або в соціальних мережах. Відповідаємо протягом робочого дня.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-label" style="text-align:center;">// ПОЧНИ ЗАРАЗ</div>
+  <h2 class="cta-title">Захисти себе<br>та свою сім'ю</h2>
+  <p class="cta-sub">Не чекай поки станеться інцидент. Прості практичні кроки, які можна зробити вже сьогодні.</p>
+  <a href="#" class="btn-primary" style="font-size:16px; padding:18px 52px;">Розпочати навчання →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="nav-logo">
+    <div class="shield">⬡</div>
+    МійКіберЗахист
+  </div>
+
+  <div class="footer-links">
+    <a href="#">Публічна оферта</a>
+    <a href="#">Політика конфіденційності</a>
+  </div>
+
+  <div class="footer-social">
+    <a href="#" class="social-btn">f</a>
+    <a href="#" class="social-btn">ig</a>
+    <a href="#" class="social-btn">yt</a>
+  </div>
+
+  <div class="footer-copy">© 2026 — ALL RIGHTS RESERVED</div>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      item.querySelector('.faq-a').style.maxHeight = item.querySelector('.faq-a-inner').scrollHeight + 40 + 'px';
+    }
+  }
+
+  // Staggered entrance animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.audience-card, .topic-card, .result-item, .author-stat').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = `opacity 0.5s ${i * 0.06}s ease, transform 0.5s ${i * 0.06}s ease`;
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
