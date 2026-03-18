@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мій КіберЗахист — Курс з особистої кібербезпеки</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- ============================================ -->
+<!-- 📊 GOOGLE ANALYTICS — замінити G-MYTMLBSMY9 -->
+<!-- ============================================ -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MYTMLBSMY9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MYTMLBSMY9');
+</script>
+
+<!-- ============================================ -->
+<!-- 📘 META PIXEL — замінити 919953044108867     -->
+<!-- ============================================ -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','919953044108867');
+fbq('track','PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=919953044108867&ev=PageView&noscript=1"/>
+</noscript>
+
+<style>
+  :root {
+    --bg: #060a14;
+    --bg2: #0b1020;
+    --surface: #0e1628;
+    --border: rgba(0,200,255,0.12);
+    --cyan: #00c8ff;
+    --cyan-dim: rgba(0,200,255,0.15);
+    --amber: #f5a623;
+    --amber-dim: rgba(245,166,35,0.15);
+    --white: #e8edf8;
+    --muted: #5a6a8a;
+    --danger: #ff3e5e;
+    --font-head: 'Syne', sans-serif;
+    --font-ui: 'Rajdhani', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--font-ui); font-size: 17px; line-height: 1.65; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 60px; background: rgba(6,10,20,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--font-head); font-size: 20px; font-weight: 800; color: var(--cyan); letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo .shield { width: 28px; height: 28px; background: var(--cyan); clip-path: polygon(50% 0%, 100% 20%, 100% 60%, 50% 100%, 0% 60%, 0% 20%); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--bg); }
+  .nav-links { display: flex; gap: 36px; list-style: none; font-size: 15px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+  .nav-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--cyan); }
+  /* ============================================ */
+  /* 🔘 CTA КНОПКА В НАВІГАЦІЇ                   */
+  /* ============================================ */
+  .nav-cta { background: var(--amber); color: #000; font-family: var(--font-ui); font-weight: 700; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; padding: 10px 24px; border: none; cursor: pointer; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); transition: background 0.2s, transform 0.15s; }
+  .nav-cta:hover { background: #ffc94a; transform: scale(1.03); }
+
+  /* HERO */
+  .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 120px 60px 80px; overflow: hidden; }
+  .hero-glow { position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(0,200,255,0.12) 0%, transparent 65%); pointer-events: none; }
+  .hero-glow2 { position: absolute; bottom: -100px; left: 20%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(245,166,35,0.07) 0%, transparent 65%); pointer-events: none; }
+  .hero-content { position: relative; max-width: 720px; z-index: 2; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px; color: var(--cyan); background: var(--cyan-dim); border: 1px solid rgba(0,200,255,0.3); padding: 6px 14px; margin-bottom: 32px; letter-spacing: 1px; }
+  .hero-badge::before { content: '▶'; font-size: 8px; animation: blink 1.2s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  h1 { font-family: var(--font-head); font-size: clamp(48px, 7vw, 86px); font-weight: 800; line-height: 1.0; letter-spacing: -2px; margin-bottom: 12px; }
+  h1 span { color: var(--cyan); }
+  .hero-sub { font-family: var(--font-head); font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: var(--amber); letter-spacing: -0.5px; margin-bottom: 28px; }
+  .hero-threats { display: flex; flex-direction: column; gap: 6px; margin-bottom: 44px; }
+  .threat-line { display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 14px; color: rgba(232,237,248,0.6); animation: fadeSlide 0.6s both; }
+  .threat-line:nth-child(2) { animation-delay: 0.15s; }
+  .threat-line:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes fadeSlide { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+  .threat-icon { width: 6px; height: 6px; background: var(--danger); border-radius: 50%; box-shadow: 0 0 8px var(--danger); flex-shrink: 0; }
+  .hero-stat-bar { display: flex; gap: 40px; padding: 24px 32px; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--cyan); margin-bottom: 44px; }
+  .stat-item { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num { font-family: var(--font-head); font-size: 28px; font-weight: 800; color: var(--cyan); line-height: 1; }
+  .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; letter-spacing: 0.3px; }
+  .hero-buttons { display: flex; gap: 16px; align-items: center; }
+
+  /* ============================================ */
+  /* 🟡 КНОПКИ CTA — стилі                       */
+  /* ============================================ */
+  .btn-primary { background: var(--amber); color: #000; font-family: var(--font-ui); font-weight: 700; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase; padding: 16px 40px; border: none; cursor: pointer; clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%); transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-primary:hover { background: #ffc94a; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,166,35,0.3); }
+  .btn-ghost { background: transparent; color: var(--white); font-family: var(--font-ui); font-weight: 600; font-size: 15px; letter-spacing: 0.5px; padding: 15px 32px; border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* TERMINAL */
+  .hero-visual { position: absolute; right: 60px; top: 50%; transform: translateY(-50%); width: 380px; opacity: 0.9; }
+  .terminal { background: rgba(11,16,32,0.9); border: 1px solid rgba(0,200,255,0.2); border-radius: 2px; overflow: hidden; box-shadow: 0 0 60px rgba(0,200,255,0.1), 0 40px 80px rgba(0,0,0,0.5); }
+  .terminal-bar { background: var(--surface); padding: 10px 14px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f56; } .dot-y { background: #ffbd2e; } .dot-g { background: #27c93f; }
+  .terminal-title { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-left: 8px; }
+  .terminal-body { padding: 20px; font-family: var(--font-mono); font-size: 12px; line-height: 1.8; }
+  .t-prompt { color: var(--cyan); } .t-cmd { color: var(--white); } .t-ok { color: #27c93f; } .t-warn { color: var(--amber); } .t-err { color: var(--danger); } .t-dim { color: var(--muted); }
+  .cursor { display: inline-block; width: 8px; height: 14px; background: var(--cyan); vertical-align: middle; animation: blink 1s step-end infinite; }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+  .section-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; }
+  .section-title { font-family: var(--font-head); font-size: clamp(32px, 4vw, 52px); font-weight: 800; line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 16px; }
+  .section-body { color: rgba(232,237,248,0.65); max-width: 560px; font-size: 16px; }
+
+  /* RESULTS */
+  .results { padding: 100px 60px; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 60px; }
+  .results-list { display: flex; flex-direction: column; gap: 14px; }
+  .result-item { display: flex; align-items: flex-start; gap: 16px; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-left: 2px solid var(--cyan); transition: border-color 0.2s, background 0.2s; }
+  .result-item:hover { border-color: var(--cyan); background: rgba(0,200,255,0.05); }
+  .result-icon { color: var(--cyan); font-size: 18px; margin-top: 1px; flex-shrink: 0; }
+  .result-text { font-size: 15px; font-weight: 500; }
+  .about-card { background: var(--surface); border: 1px solid var(--border); padding: 40px; position: relative; }
+  .about-card::before { content: '"'; position: absolute; top: -20px; left: 30px; font-family: var(--font-head); font-size: 80px; color: var(--cyan); opacity: 0.15; line-height: 1; }
+  .about-text { font-size: 15px; color: rgba(232,237,248,0.75); margin-bottom: 20px; }
+  .about-modules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px; }
+  .module-chip { background: var(--cyan-dim); border: 1px solid rgba(0,200,255,0.2); padding: 10px 14px; font-family: var(--font-mono); font-size: 11px; color: var(--cyan); text-align: center; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* AUDIENCE */
+  .audience { padding: 100px 60px; }
+  .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+  .audience-card { background: var(--surface); border: 1px solid var(--border); padding: 32px 28px; position: relative; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
+  .audience-card:hover { transform: translateY(-4px); border-color: rgba(0,200,255,0.3); }
+  .audience-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--cyan), transparent); }
+  .audience-num { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 16px; }
+  .audience-title { font-family: var(--font-head); font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--white); }
+  .audience-desc { font-size: 14px; color: rgba(232,237,248,0.6); line-height: 1.6; }
+
+  /* AUTHOR */
+  .author { padding: 100px 60px; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .author-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .author-name { font-family: var(--font-head); font-size: 42px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 6px; }
+  /* ============================================ */
+  /* 👤 АВТОР — роль під іменем                  */
+  /* ============================================ */
+  .author-role { font-family: var(--font-mono); font-size: 12px; color: var(--cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 28px; }
+  .author-text { font-size: 15px; color: rgba(232,237,248,0.7); margin-bottom: 16px; }
+  .author-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 32px; }
+  .author-stat { background: var(--surface); border: 1px solid var(--border); padding: 20px; text-align: center; }
+  .author-stat-num { font-family: var(--font-head); font-size: 36px; font-weight: 800; color: var(--amber); line-height: 1; margin-bottom: 4px; }
+  .author-stat-label { font-size: 13px; color: var(--muted); }
+  .author-photo-wrapper { position: relative; }
+  .author-photo-frame { position: relative; overflow: hidden; }
+  .author-photo-frame img { width: 100%; display: block; filter: grayscale(20%) contrast(1.1); }
+  .author-photo-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,200,255,0.1) 0%, transparent 60%); }
+  .author-photo-border { position: absolute; top: 16px; left: 16px; right: -16px; bottom: -16px; border: 2px solid var(--cyan); z-index: -1; opacity: 0.3; }
+
+  /* TOPICS */
+  .topics { padding: 100px 60px; }
+  .topics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 60px; background: var(--border); border: 1px solid var(--border); }
+  .topic-card { background: var(--bg); padding: 28px 24px; transition: background 0.2s; }
+  .topic-card:hover { background: var(--surface); }
+  .topic-card:hover .topic-icon { color: var(--amber); }
+  .topic-icon { font-size: 24px; margin-bottom: 12px; color: var(--cyan); transition: color 0.2s; }
+  .topic-name { font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .topic-desc { font-size: 13px; color: rgba(232,237,248,0.55); line-height: 1.55; }
+
+  /* FAQ */
+  .faq { padding: 100px 60px; background: var(--bg2); border-top: 1px solid var(--border); }
+  .faq-list { max-width: 760px; margin: 60px auto 0; display: flex; flex-direction: column; gap: 2px; }
+  /* FAQ — pure CSS, no JS */
+  details.faq-item { background: var(--surface); border: 1px solid var(--border); margin-bottom: 2px; }
+  details.faq-item summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 28px; cursor: pointer; font-family: var(--font-ui); font-size: 16px; font-weight: 600; color: var(--white); transition: color 0.2s; user-select: none; }
+  details.faq-item summary::-webkit-details-marker { display: none; }
+  details.faq-item summary::after { content: '+'; color: var(--cyan); font-size: 22px; font-weight: 400; line-height: 1; flex-shrink: 0; transition: transform 0.3s; }
+  details.faq-item[open] summary::after { transform: rotate(45deg); }
+  details.faq-item summary:hover { color: var(--cyan); }
+  details.faq-item[open] summary { color: var(--cyan); }
+  .faq-a-inner { padding: 16px 28px 22px; font-size: 15px; color: rgba(232,237,248,0.65); border-top: 1px solid var(--border); line-height: 1.65; }
+  .faq-a-inner a { color: var(--cyan); }
+
+  /* CTA */
+  .cta-section { padding: 120px 60px; text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,200,255,0.08) 0%, transparent 65%); pointer-events: none; }
+  .cta-title { font-family: var(--font-head); font-size: clamp(36px, 5vw, 64px); font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; }
+  .cta-sub { color: rgba(232,237,248,0.6); max-width: 480px; margin: 0 auto 44px; font-size: 16px; }
+
+  /* FOOTER */
+  footer { background: var(--surface); border-top: 1px solid var(--border); padding: 48px 60px; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 32px; }
+  .footer-links { display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--cyan); }
+  .footer-contact { font-family: var(--font-mono); font-size: 13px; color: var(--cyan); }
+  .footer-social { display: flex; gap: 12px; align-items: center; }
+  .social-btn { width: 36px; height: 36px; background: var(--bg2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 14px; text-decoration: none; transition: all 0.2s; font-family: var(--font-mono); }
+  .social-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-copy { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.5px; }
+
+  /* MODAL */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(6,10,20,0.92); backdrop-filter: blur(8px); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+  .modal-box { background: var(--bg2); border: 1px solid var(--border); border-top: 2px solid var(--cyan); max-width: 760px; width: 100%; max-height: 80vh; display: flex; flex-direction: column; }
+  .modal-header { padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .modal-title { font-family: var(--font-head); font-size: 22px; font-weight: 800; }
+  .modal-close { background: none; border: none; color: var(--muted); font-size: 24px; cursor: pointer; transition: color 0.2s; line-height: 1; }
+  .modal-close:hover { color: var(--white); }
+  .modal-body { padding: 32px; overflow-y: auto; flex: 1; }
+  .modal-body h2 { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--cyan); margin: 24px 0 10px; }
+  .modal-body h3 { font-family: var(--font-head); font-size: 15px; font-weight: 700; color: var(--amber); margin: 16px 0 8px; }
+  .modal-body p { font-size: 14px; color: rgba(232,237,248,0.72); margin-bottom: 10px; line-height: 1.65; }
+  .modal-body ul { margin: 8px 0 12px 20px; }
+  .modal-body li { font-size: 14px; color: rgba(232,237,248,0.65); margin-bottom: 5px; }
+  .modal-body a { color: var(--cyan); }
+  .modal-body hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+  /* SCANLINE */
+  @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
+  .scanline { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(0,200,255,0.15), transparent); animation: scanline 8s linear infinite; pointer-events: none; z-index: 999; }
+
+  @media (max-width: 900px) {
+    nav { padding: 14px 24px; } .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; } .hero-visual { display: none; }
+    .results { padding: 70px 24px; } .results-grid { grid-template-columns: 1fr; gap: 40px; }
+    .audience { padding: 70px 24px; } .audience-grid { grid-template-columns: 1fr; }
+    .author { padding: 70px 24px; } .author-inner { grid-template-columns: 1fr; gap: 40px; }
+    .topics { padding: 70px 24px; } .topics-grid { grid-template-columns: repeat(2, 1fr); }
+    .faq { padding: 70px 24px; } .cta-section { padding: 80px 24px; }
+    footer { padding: 32px 24px; }
+    .hero-stat-bar { flex-direction: column; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+
+<!-- ============================================ -->
+<!-- 🧭 НАВІГАЦІЯ                                -->
+<!-- ============================================ -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="shield">⬡</div>
+    МійКіберЗахист
+  </a>
+  <ul class="nav-links">
+    <li><a href="#results">Курс</a></li>
+    <li><a href="#audience">Для кого</a></li>
+    <li><a href="#author">Автор</a></li>
+    <li><a href="#topics">Теми</a></li>
+    <li><a href="#faq">Питання</a></li>
+  </ul>
+  <!-- 🔘 Змінити посилання на LMS нижче -->
+  <button class="nav-cta" onclick="window.open('https://skool.mycyberdefence.com/','_blank'); fbq('track','InitiateCheckout'); gtag('event','click_nav_cta');">Розпочати</button>
+</nav>
+
+<!-- ============================================ -->
+<!-- 🦸 ГЕРОЙ — головний блок                    -->
+<!-- ============================================ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">КУРС З ОСОБИСТОЇ КІБЕРБЕЗПЕКИ</div>
+    <!-- 📝 Головний заголовок -->
+    <h1>МІЙ<br><span>КІБЕР</span><br>ЗАХИСТ</h1>
+    <!-- 📝 Підзаголовок -->
+    <p class="hero-sub">Захисти своє цифрове життя вже сьогодні</p>
+    <div class="hero-threats">
+      <div class="threat-line"><span class="threat-icon"></span>Щодня тисячі людей втрачають доступ до акаунтів</div>
+      <div class="threat-line"><span class="threat-icon"></span>Крадуть гроші з карток і зламують пошту</div>
+      <div class="threat-line"><span class="threat-icon"></span>Більшість не знає як захиститися</div>
+    </div>
+    <div class="hero-stat-bar">
+      <div class="stat-item"><span class="stat-num">39с</span><span class="stat-label">Кожні 39 секунд — кібератака</span></div>
+      <div class="stat-item"><span class="stat-num">$1000+</span><span class="stat-label">Середні збитки від одного інциденту</span></div>
+      <div class="stat-item"><span class="stat-num">95%</span><span class="stat-label">Атак — через людський фактор</span></div>
+    </div>
+    <div class="hero-buttons">
+      <!-- ============================================ -->
+      <!-- 🔗 КНОПКИ — замінити посилання на LMS       -->
+      <!-- ============================================ -->
+      <a href="https://skool.mycyberdefence.com/" target="_blank" class="btn-primary" onclick="fbq('track','Lead'); gtag('event','click_hero_cta');">Розпочати зараз за <span style="font-size:1.35em;font-weight:800;letter-spacing:-0.5px;">590</span>грн</a>
+      <a href="#topics" class="btn-ghost">Теми курсу →</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="terminal-title">security_scan.sh</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">▶ </span><span class="t-cmd">init_cyber_protection</span></div>
+        <div><span class="t-dim">// Сканування вразливостей...</span></div><br>
+        <div><span class="t-err">✗ </span><span class="t-cmd">Паролі: СЛАБКІ</span></div>
+        <div><span class="t-err">✗ </span><span class="t-cmd">2FA: ВИМКНЕНО</span></div>
+        <div><span class="t-err">✗ </span><span class="t-cmd">VPN: НЕ НАЛАШТОВАНО</span></div>
+        <div><span class="t-warn">⚠ </span><span class="t-cmd">Резерв копій: РІДКО</span></div><br>
+        <div><span class="t-dim">// Після курсу:</span></div><br>
+        <div><span class="t-ok">✓ </span><span class="t-cmd">Паролі: ЗАХИЩЕНО</span></div>
+        <div><span class="t-ok">✓ </span><span class="t-cmd">2FA: АКТИВНО</span></div>
+        <div><span class="t-ok">✓ </span><span class="t-cmd">VPN: НАЛАШТОВАНО</span></div>
+        <div><span class="t-ok">✓ </span><span class="t-cmd">Резерв: 3-2-1</span></div><br>
+        <div><span class="t-prompt">▶ </span><span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- ✅ РЕЗУЛЬТАТИ КУРСУ                          -->
+<!-- ============================================ -->
+<section class="results" id="results">
+  <div class="section-label">// РЕЗУЛЬТАТ НАВЧАННЯ</div>
+  <h2 class="section-title">Після курсу<br>ти зможеш:</h2>
+  <div class="results-grid">
+    <div class="results-list">
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Розпізнавати найпоширеніші кіберзагрози</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Захищати акаунти від злому</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Створювати та зберігати надійні паролі</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Безпечно користуватись соціальними мережами</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Захищати пристрої від вірусів та шпигунських програм</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Налаштовувати VPN та фаєрвол</span></div>
+    </div>
+    <div class="results-list">
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Робити резервні копії та відновлювати дані</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Організовувати безпеку домашньої мережі</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Купувати онлайн безпечно, уникаючи шахрайства</span></div>
+      <div class="result-item"><span class="result-icon">◈</span><span class="result-text">Контролювати свою цифрову гігієну щодня</span></div>
+    </div>
+  </div>
+  <div style="margin-top: 60px;">
+    <div class="about-card">
+      <p class="about-text">Кожен урок — незалежний, можна обирати тему, яка потрібна саме зараз. Конспект із чеклістами та порадами на всі випадки.</p>
+      <p class="about-text">Курс створено спеціально для звичайних користувачів — без складної термінології та технічного жаргону. Прості й практичні інструменти.</p>
+      <div class="about-modules">
+        <div class="module-chip">Загрози</div>
+        <div class="module-chip">Інструменти захисту</div>
+        <div class="module-chip">Технології</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 👥 ДЛЯ КОГО КУРС                            -->
+<!-- ============================================ -->
+<section class="audience" id="audience">
+  <div class="section-label">// ДЛЯ КОГО</div>
+  <h2 class="section-title">Курс для тебе,<br>якщо ти...</h2>
+  <div class="audience-grid">
+    <div class="audience-card">
+      <div class="audience-num">01 //</div>
+      <div class="audience-title">Студент, підприємець,<br>бухгалтер, юрист</div>
+      <p class="audience-desc">Навчишся застосовувати практики цифрової безпеки в повсякденному житті. Захистиш бізнес-листування та конфіденційну інформацію клієнтів.</p>
+    </div>
+    <div class="audience-card">
+      <div class="audience-num">02 //</div>
+      <div class="audience-title">Батько, вчитель або<br>старше покоління</div>
+      <p class="audience-desc">Отримаєш практичні поради щодо батьківського контролю та безпеки дітей онлайн. Прості інструкції для безпечного спілкування.</p>
+    </div>
+    <div class="audience-card">
+      <div class="audience-num">03 //</div>
+      <div class="audience-title">Активний користувач<br>смартфону і мережі</div>
+      <p class="audience-desc">Онлайн-шопери, блогери, геймери, власники крипто-активів — захистиш рахунки, акаунти та цифрові активи від зловмисників.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 👤 АВТОР КУРСУ                              -->
+<!-- ============================================ -->
+<section class="author" id="author">
+  <div class="author-inner">
+    <div>
+      <div class="section-label">// АВТОР КУРСУ</div>
+      <!-- 📝 Ім'я автора -->
+      <h2 class="author-name">Богдан<br>Браілов</h2>
+      <!-- 📝 Роль — змінити тут -->
+      <div class="author-role">Ведучий</div>
+      <!-- 📝 Текст про автора — змінити тут -->
+      <p class="author-text">Понад 20 років досвіду у сфері IT, з яких 15 — у галузі розробки рішень для кібербезпеки урядових організацій та великого бізнесу.</p>
+      <p class="author-text">Переконаний, що захист у цифровому світі не повинен бути привілеєм технічних експертів. Тому створив курс, де складні речі пояснюються простою мовою.</p>
+      <div class="author-stats">
+        <div class="author-stat"><div class="author-stat-num">20+</div><div class="author-stat-label">Років у сфері IT</div></div>
+        <div class="author-stat"><div class="author-stat-num">15</div><div class="author-stat-label">Років у кібербезпеці</div></div>
+      </div>
+    </div>
+    <div class="author-photo-wrapper">
+      <!-- ============================================ -->
+      <!-- 📸 ФОТО АВТОРА — вбудоване base64           -->
+      <!-- ============================================ -->
+      <div class="author-photo-frame">
+        <img src="author.jpg" alt="Богдан Браілов — автор курсу МійКіберЗахист">
+      </div>
+      <div class="author-photo-border"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 📚 ТЕМИ КУРСУ                               -->
+<!-- ============================================ -->
+<section class="topics" id="topics">
+  <div class="section-label">// ТЕМИ КУРСУ</div>
+  <h2 class="section-title">Що розглядається<br>в курсі</h2>
+  <div class="topics-grid">
+    <div class="topic-card"><div class="topic-icon">🔍</div><div class="topic-name">Вразливості</div><p class="topic-desc">Як зловмисники знаходять слабкі місця. Основні типи вразливостей та методи їх виявлення.</p></div>
+    <div class="topic-card"><div class="topic-icon">🦠</div><div class="topic-name">Малварь</div><p class="topic-desc">Віруси, трояни та шпигунські програми. Механізми шкідливого впливу та реагування.</p></div>
+    <div class="topic-card"><div class="topic-icon">🎣</div><div class="topic-name">Фішинг</div><p class="topic-desc">Як не потрапити на гачок шахраїв. Психологічні прийоми маніпуляцій та технічні ознаки.</p></div>
+    <div class="topic-card"><div class="topic-icon">⚡</div><div class="topic-name">Злам</div><p class="topic-desc">Приклади атак та методи протидії. Реальні кейси компрометації систем.</p></div>
+    <div class="topic-card"><div class="topic-icon">🌐</div><div class="topic-name">Браузери</div><p class="topic-desc">Налаштування приватності та блокування трекінгу. Корисні розширення та інкогніто.</p></div>
+    <div class="topic-card"><div class="topic-icon">🔑</div><div class="topic-name">Паролі</div><p class="topic-desc">Менеджери паролів та багатофакторна автентифікація. Надійне зберігання облікових даних.</p></div>
+    <div class="topic-card"><div class="topic-icon">🛡️</div><div class="topic-name">Антивірус</div><p class="topic-desc">Як обрати та правильно використовувати. Критерії вибору між безкоштовними та платними.</p></div>
+    <div class="topic-card"><div class="topic-icon">🔒</div><div class="topic-name">VPN</div><p class="topic-desc">Коли потрібен і як налаштувати. Критерії вибору надійного VPN-сервісу.</p></div>
+    <div class="topic-card"><div class="topic-icon">🔥</div><div class="topic-name">Фаєрвол</div><p class="topic-desc">Перша лінія оборони в інтернеті. Правила фільтрації трафіку та блокування загроз.</p></div>
+    <div class="topic-card"><div class="topic-icon">💻</div><div class="topic-name">Віртуальні машини</div><p class="topic-desc">Безпечне тестування та робота з файлами. Ізольоване середовище для підозрілих об'єктів.</p></div>
+    <div class="topic-card"><div class="topic-icon">🔐</div><div class="topic-name">Шифрування</div><p class="topic-desc">Захист файлів, дисків та повідомлень. Практичні інструменти для конфіденційності.</p></div>
+    <div class="topic-card"><div class="topic-icon">💾</div><div class="topic-name">Резервне копіювання</div><p class="topic-desc">Автоматичні бекапи за принципом 3-2-1. Схема резервування без втрати важливого.</p></div>
+    <div class="topic-card"><div class="topic-icon">📡</div><div class="topic-name">Домашня мережа</div><p class="topic-desc">Налаштування роутера, Wi-Fi та гостьових мереж. Зміна заводських паролів та шифрування.</p></div>
+    <div class="topic-card"><div class="topic-icon">📱</div><div class="topic-name">Розумні пристрої</div><p class="topic-desc">Камери, колонки та IoT-девайси. Налаштування приватності та ізоляція в окрему мережу.</p></div>
+    <div class="topic-card"><div class="topic-icon">📲</div><div class="topic-name">Додатки</div><p class="topic-desc">Які дозволи давати, а які — ні. Аналіз запитів на доступ до даних.</p></div>
+    <div class="topic-card"><div class="topic-icon">🛒</div><div class="topic-name">Шопінг</div><p class="topic-desc">Безпечні онлайн-покупки та захист картки. Розпізнавання фішингових сайтів.</p></div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 📢 БАНЕР — оновлення курсу                  -->
+<!-- ============================================ -->
+<div style="background:var(--surface);border-top:2px solid var(--amber);border-bottom:2px solid var(--amber);padding:48px 60px;text-align:center;position:relative;z-index:1;overflow:hidden;">
+  <!-- Subtle bg glow -->
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(245,166,35,0.07) 0%,transparent 70%);pointer-events:none;"></div>
+  <!-- Content -->
+  <div style="position:relative;">
+    <div style="display:inline-flex;align-items:center;gap:16px;margin-bottom:16px;">
+      <span style="width:10px;height:10px;background:var(--amber);border-radius:50%;display:inline-block;box-shadow:0 0 12px var(--amber);animation:pulse 2s ease-in-out infinite;"></span>
+      <span style="font-family:var(--font-mono);font-size:12px;color:var(--amber);letter-spacing:3px;text-transform:uppercase;">ЖИВЕ ОНОВЛЕННЯ</span>
+      <span style="width:10px;height:10px;background:var(--amber);border-radius:50%;display:inline-block;box-shadow:0 0 12px var(--amber);animation:pulse 2s ease-in-out infinite 0.5s;"></span>
+    </div>
+    <p style="font-family:var(--font-head);font-size:clamp(22px,3vw,36px);font-weight:800;color:var(--white);letter-spacing:-1px;line-height:1.2;margin:0;">
+      Курс постійно оновлюється —<br>
+      <span style="color:var(--amber);">додаються актуальні теми</span>
+    </p>
+  </div>
+</div>
+<style>
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+</style>
+
+<!-- ============================================ -->
+<!-- ❓ FAQ — ЧАСТІ ЗАПИТАННЯ                    -->
+<!-- ============================================ -->
+<section class="faq" id="faq">
+  <div style="text-align:center;">
+    <div class="section-label" style="text-align:center;">// ЧАСТІ ЗАПИТАННЯ</div>
+    <h2 class="section-title">FAQ</h2>
+  </div>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>Чи потрібні технічні знання?</summary>
+      <div class="faq-a-inner">Ні. Курс створено спеціально для звичайних користувачів. Усі терміни пояснюються простою мовою, без технічного жаргону. Якщо ти вмієш користуватись смартфоном — цього достатньо.</div></details>
+    <details class="faq-item">
+      <summary>Скільки часу потрібно на навчання?</summary>
+      <div class="faq-a-inner">Кожен урок незалежний і займає від 15 до 40 хвилин. Ти можеш вчитися у власному темпі та обирати лише ті теми, які потрібні прямо зараз.</div></details>
+    <details class="faq-item">
+      <summary>Чи залишиться мені доступ після завершення?</summary>
+      <div class="faq-a-inner">Так. Після придбання ти отримуєш довічний доступ до всіх матеріалів курсу, включаючи майбутні оновлення.</div></details>
+    <details class="faq-item">
+      <summary>Чи допоможе курс захистити бізнес?</summary>
+      <div class="faq-a-inner">Курс орієнтований насамперед на особисту безпеку, але більшість практик прямо застосовні для захисту малого бізнесу, фрілансерів та команд.</div></details>
+    <details class="faq-item">
+      <summary>Чим цей курс відрізняється від безкоштовних статей?</summary>
+      <div class="faq-a-inner">Це структурована система знань, а не розрізнені поради. Кожна тема — це практичний чекліст, конкретні кроки та реальні інструменти. Не потрібно збирати інформацію по різних джерелах.</div></details>
+    <!-- 📝 Відповідь на останнє питання FAQ -->
+    <details class="faq-item">
+      <summary>Куди я можу звернутись якщо виникли питання?</summary>
+      <div class="faq-a-inner">У разі виникнення запитань різного характеру, ви можете написати сюди: support@mycyberdefence.com</div></details>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 🚀 CTA — ЗАКЛИК ДО ДІЇ                     -->
+<!-- ============================================ -->
+<section class="cta-section">
+  <div class="section-label" style="text-align:center;">// ПОЧНИ ЗАРАЗ</div>
+  <h2 class="cta-title">Захисти себе<br>та свою сім'ю</h2>
+  <p class="cta-sub">Не чекай поки станеться інцидент. Прості практичні кроки, які можна зробити вже сьогодні.</p>
+  <!-- 🔗 Замінити посилання на LMS нижче -->
+  <a href="https://skool.mycyberdefence.com/" target="_blank" class="btn-primary"
+     style="font-size:16px; padding:18px 52px;"
+     onclick="fbq('track','Purchase',{value:590,currency:'UAH'}); gtag('event','click_bottom_cta');">
+    Розпочати зараз за <span style="font-size:1.35em;font-weight:800;letter-spacing:-0.5px;">590</span>грн →
+  </a>
+</section>
+
+<!-- ============================================ -->
+<!-- 🔻 ФУТЕР                                    -->
+<!-- ============================================ -->
+<footer>
+  <div class="footer-top">
+    <a href="index.html" class="nav-logo" style="text-decoration:none;">
+      <div class="shield">⬡</div>МійКіберЗахист
+    </a>
+    <div>
+      <div class="footer-links">
+        <!-- 🔗 Посилання на сторінки документів -->
+        <a href="oferta.html">Публічна оферта</a>
+        <a href="policies.html">Політика конфіденційності</a>
+        <a href="personal_data.html">Згода на обробку персональних даних</a>
+      </div>
+    </div>
+    <div>
+      <!-- 📧 Контактний email -->
+      <div class="footer-contact"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAA4AkgDASIAAhEBAxEB/8QAHAABAAMBAQEBAQAAAAAAAAAAAAUGBwIEAwgB/8QARxAAAQIFAwICBwQGCAMJAAAAAQIDAAQFBhEHEiExQRNRCBQiMmGBkRVScaEWFyNiY7EYJCUzVnKU0TRCwUNEgpOyw9Lh8P/EABoBAQADAQEBAAAAAAAAAAAAAAACAwQFAQb/xAA4EQABBAEDAwIEBAQEBwAAAAABAAIDEQQSITEFQVETImFxgZEGMqHBFCNCsRUW0fEkM0NygqLh/9oADAMBAAIRAxEAPwD8qQhHspNKqdWfUxS6fNzzqU7lIl2VOKA8yAOkdFZV44RP/oVeP+Fq1/oXP9ofoVeH+Fq1/oXP9oWF6oCET/6FXh/hatf6Fz/aPBV6HWaOGzVaTPSAczsMwwpvdjrjI5hYRR8IQj1eJCEIIkIQgi6b98RzHTfviOYIkIQgiQhCCJCEIIkIQgiQhHvpNGqtWbmHKbIPzSZZIU8W052A5xn6H6R61pcaAtRfIyNup5ofFeCEI9tFpNRrU+mRpcm7NTChnYgdB5k9APieINaXGgN0e9sbS55oDuV4oReH9Kb0blvGFPZcUBktomEFQ/PH0MUuZYelphyXmGnGXm1FK21pKVJI6gg9DFkuPLD/AMxpHzCzYufi5d+hI11c0Qf7L5whCKlrSOk+4r5RzHSfcV8oIuYQhBEhCEESEIk7boNUuKfVI0iXD8wlsulJcSj2QQCcqIHUiPWsc8hrRZUJZWRML5CAByTsAoyEfWbl3pSbelZhGx5lxTbicg4UDgjj4iPlHhFKYIIsJCEIIkIQgiQhCCJCJgWzWTbBuUSqfswK2l7xU5zu2e7nPXjpEPEnMcytQq91XHNHLehwNGjR4I5B+PwSEIRFWLpXuJ+ccxMW7bdbuJamqNT3JotDLhCglKc9MqUQMnnjOeDHur9h3RQqY5UqnT0MyzZAUsPoVgk4HAOepi4Y8rmaw015rZZH9QxY5RA6Voee1i9+NuVWYQhFK1pCEIIkIQgiQhCCJCEIIkIQgiQhCCJCEIIkdOe+Y5jpz3zBFzCEIIkIQgiR+jPQTz+mNx7VlCvs5BSodQfEEfnXCfv/AJR+hvQdUG7wuEhWf7PR8P8AtBFcv5CpM5X6/RVl7VtvKKX205IB4UPvD4RQX9RKuJtTLFMmJhSQFHwUbkjPQZz1izTyfWGi6QUqQCWyOvT+XwjKl+O5MrWirtSjQQMJSlKlEjOeSYv6dAyVkhLbIqtifPYELLnzOjcwB1A33A8dyCtnYrbopss882sTT6AUy+edxGSPl3MfnL06/FNq2yt9zxHlTzxUe3uDgfCNzoaUiRl5wLL7qmUgrJ/5cdvL/rGD+nG4HbXtrKsD113/ANAjAwfzFuJ9q/KEI6wn7/5Qwn7/AOUbFSrXpxZT93zUyTNpk5OUCS88U7jk5wAMjyPOeItbOmlqVUOStAvNqZnkJJCCULCsfBJBx8RnEQ2k13Uq3hUaZW0OLp9QSApaEk7Dgg5A5wQe3PEWCRsWx684tdoXZMMTgypDalZKR3wkhK8ds5MdzEggfC3S0OcbsF1H4Uvieq5ubBlyepK+KMVpIYHN431Giee2yzuk2+9MXmzbc8oyzypv1Z1QG7aQcEjzj+33Q0W3dM3Rm5hUwiX2YcUnaTuQlXT5xK2lIzVN1Xp8hUHCqaYqAQ4ck7iD1yeoPWPprYB+suqEqxkM9v4KIxOgaMVz63Dq+lHZdqPMld1NkOq2GIu24J1AWO/B8rm4bMZpFi0i5Uz7jrk+pAUyWwAjchSuDnn3cRKWppmxXbMl6+qtpkt6ll3xWx4bbaFkKVnI7Jz2/wCsS+oAH6lLVBOP2jPb+C5H9Kin0bUhKyApzBI8vWTG5uLA2V2ptgM1VZ5oLhP6nnSYjCySnOnLLoH224cVWy8j+mFHqdImJq0blRU5mWTlbJKSFnnjI90nBxnIPn3FKsC327mudijuzK5ZLiFqK0p3EbUk9PlFu9HRRF5zqEuEpVT1kp7EhxvB/M/WPlpWhCNY1pQQAl2aAAHQYVFYghmMDw2tTqIs1yFodm5mI3NgdKXmNmpriBYsHmhRojbZe9OmVtSU+qnVm8WWZ5xZDDCShKgkn2N2T1Ixxx14zFL1AtOctGspkph0TDLqPEYfSnaFpzggjsR3GT1HnHOoy1O35W1uuEqE64kZ8gcAfQCL1r+S5S7UddUfEUw6VEjknazEZY4JIpSxmksIrc72a3U8WfOx8rFE02sTA2CAKIbq2ofTdQlmadIqVC/SC4Ks3R6Yr+6UvaFODON2ScJGeB1J+mfrdOm8vL0B2v2xWm6xJMAl5KdpUhIGVEKScHA5IwCBEtqoojSez2gshtTDCiMcEhgY/mYaCnfQrsYUsqa8Bs7T0GUug/UAfSLxjY/qjF0bkXqs3dX8qWN3Uc/+Fd1MS+0PrRQrTr08833u1SdOLZauy4VUt6bXKpDCnd6UBR4IGMZ+MXJvTO2Jee+yKneLbdVcVhphG0FOT7AIJ5UQRxx14z1Md6PoSL7cwrP9Sc7fvIip3qsqvStOF1W/7QfOe4/aKjNGIYsVsrmaiSRyeNvC6WQ7NyupyY0U5ja1jTsAdyT5HHn9l7bhtF637ylqFVZxtuWfdbxOAYT4SlYKyCeMc5BPbrjmNg0ztu36NJ1lulXLL1VEy2hL6m1oPggBeCdpPXcevlGQ6gXe7eExJvzEozKrlmyjLZJ35IPf/wDcxcdAQBS7rwrP9Xa7fuuxo6e+BubpjbYN0d7Gx/2XO6/DnSdGEmRJpcNIc0AUTrAu/wBdtlFV6ybQkaNNzknfMnNzDLSltsJW2S4oDhIwrPMS1ozKrT0XnLhkdiajUH/DbdKQSkBWwfjjC1D4mMmwn7/5RqFSA/o70wbuPXVc4/iORTiytc98kbQ0hp4J587/ADWzqeLKyKCDIlMgfK0GwBtRNbAWLCjrVkNTnS1clM+0Zhsq3gvTYw+B2KFKyoH8PwixaqW3LVrU6iS6VmU+1JfDywjKso3ckeeMD5R89Y6jUKVR7Ul6ZPzMiyJQkeA4pGSlLYHQ84HT8YsN2Er1XsxazhZZcJ477TG4QRhjoCSaLLvjfmvHK4rs3IfLHmtDWamTadI3po21djuLGwrwq4nSWkPuT1Mk7n8SryuFFotgJQlXKdw68jHI6Z6ecJdtg0qRs43JQK79py7DgbmCUgAkqCcpx09ojg54Oc+dztvH657u9r/uR4/8qKzboH9H24Ru4+0E84/eYiEmPjlrgI62f3P9PHf7q3Hz+oNkY505cNUNim7+p+YbDt2/dQzFkMTmmrl2SFQcefYz6xK+GPY2qwrnPZJCvwiM07tld13AKWHlMNBtTrzqU7ihI+HxUUj5xb9AqowZ+oWvOqDktUWVKQ2roVAELTj4ozn/ACROWbSl6fWtdNbnP+IbdVLyylo98JO1Ch8FKUPkIogw4phFKB7aOr/x/wBVuzer5WIcnFLrkJb6Ww4fsO2+k3z+qyyrULZeT9u0ZxyfWmZ9WaUUhJWscK74ABzz0wMxfVaZWxTENStw3izK1F1IV4YUhCU5+CjkjOeTjMVvRk79T6UtaytSi8ST1J8FzmPLquouaiVlTjhKg+E8jsEgD8gIoiELIDO5l26gLNAVa3ZLsybOZgsmLA2MOLgBbjenuKA2vYLjUOzZ2z6i0y8+ialZhJVLvpTt3YxkEdiMjzHI+OPfclkMSFiU+6qbUHJxmY2eMgtgeFuBzyD2UNp+JiFrVdrtTpEjIVSbW7JSqQJUKl0p2gJwMKABPAHUmNC0dfZuGza1ZM26kktqdl93O0K7gfur2q/FUII8eeZ0bG1qHtvsefso5uRn4OFFkTPBLHDXQ2c0mr42I2O3x7KoaZWYbwnpxDs2qUlZRoKW6lAUdyj7I5I7BRz8In9BEMN6iz7cq6p5hMm8GnFJ2laQ4jBI7ZHaJWXZcsfRWbU+lTFSqzqm8KHtJ3ZTjjyQlSh8TEL6PASL4mMKz/Z7nb99uNGPCyGfHbXuO5+vA+ywZ+ZLmYWfLq/lC2tH/aPcb72ePkpie08tuZuGcl6ndrLFXnJlbjcq2UexvUVJSQTknBHHHXjzOdXvbU5atecpc2tLo2hxl1IwHEHODjtyCCPMHr1ji7XF/pjVnvGUHRUHlbu4PiGNA9JBCPtmkLOAoy6wTjqAof7mKZmwzQyPazSWEd+bvla8OTMw8zHhll1tla7YgCi0A7V23re1E2zp3JuW81cF11pNHkn8FhHG9xJGQcnzHIABOOY+V4afMSNB/SK26sisUxJ/bEY3NjgZyDzz1GAR5Yzi/wCosnZ79Et5m6KtO05CJc+rJlkEhfstg5whXTjHTqYhJSuafUGya5RaNX52aVPS72xEwwv+8U2UjBDaQM8dY2SYeNHcTtIoc6vddXx+y5OP1jqM+nJj1uJdWkM9mnVX5quwN7vnZUfTK1GbvrUxT3pxcolqWLwWhAUSQpIxyf3otcnppbBmBSJu8mU1o8FlvaQlX3cE5J+GQfhHx9HMAXhPYVn+z1dv4jcUObnHmrleqXjFUyicU/vOclYXuz9YxMEEONHI9mokm9zwKXYmOdl9RnginLGsa0igDub8g7bbr6Xdb87bVdepM7tUtGFIcSDtcQeih/L8QRF8l9MKPTaPLzV3XKimTMynKGRtAQeOMn3iMjOMAefeK7cFzKvG9aVPzMo1LFCmZcoQSoKAcJzz/mic9ItRN5ySFOEJTT0EJ7AlxzJ/IfSPWR47GyzBuoAgC77+V5NP1CWTFxHv9N7muLyACbbWwuxuTasl00cULQmapyJxqdaS4hbUw17rqFPpUlQ5PY+ZjONPbLm7smX1esIkqfLDMxNLGQnjIAGRk8eeAOvYG6hRV6NqgpZIS7gE+XrQj0aTIpytIa6mqTT0tIrm3UzDzQytKC20Djg+fkesbJIY8jIiBFN0A1fi9r/dcmDMyMDAyS11yGctur50gkN8+B5UWdNrbqzEw1at2NztQYQVFlZSQvHkRjAzjnkfWKJRLbqlXuFVBl2kNzyCtK0Oq2hJRncCfkY0S1XdK7crjFXkboqi3mQoBDrKyhQUkpOQGge+evUCKLeVWZmL3qNXos662268VtPN7m1YIwT2IzzGPKix2sa/YG9w117ee9eF1ul5Oe+WWG3lum2ukZpp3FbAWO/nsthsy1LjoGnNUpLLkuzV5h5a2HG3OEgpQM7scHhUZ7ettX/Tbfem69WX5qQSpIW2qoLdBJIA9k8HnEWG1KlUHND69OOVKbXMtzKwh5TqitIw1wDnI6n6xlk3VqnOMlibq07MNE5KHXlqSfkTF+dNCIY2gHdu2+3J523WHomJmOzJ5HOYak93s3NAcG9vhzRVlsGxF3DIv1ipVBFLo8uSFTC8ZWR1AyQAB949+BnnEzPaa0qo0mYnbLuFNWdlh+0llbSpX4EYweDjI584sVCaoTuhFOZuCfmZKnuOr8R1hJKiQ+sgY2q4yB27R5rJqWmFpVN2fp1zVF1brJZUh9hZTjcDnAaHPH5mLI8PHa1jX6acASS6iL8D4fqqMjq/UJJJ5IC8ljy1rWs1MIaaNmrs/PZZxYFvt3Nc7FIdmVSyXULUXEp3EbUk9PlF5TplbMnPqptXvFpmfcWQwwkoSoJJ9jcCepGOOOuBmIvSFbD2rSXpdWWlqmFN+zj2SlWPyiuajLU7flbW46VKE64nJ7AKwB8gAIxRCGLGEjmBx1Ecnih4XYyX5mV1M40UxjaIw7YAmySO4+6/t/2pN2jWhIzDqZhlxHiMPpTgLTnHI7Edxk9vOJ6zNOm6jQv0huKrIpFMV/dFW0KcGcbiScJGenUn6ZnfSHwuXtpxavbUy9k45PDUc6qqI0ns9oLIbUwwojsSGBj+Zi92JDDPMSLawAgfOv7WscXVczLwsRrX6XyuILgBw27ocWa+ijLk03k029MV61a63V5WWBU83lJUEgZVhSeMgc4IHHyEU+0Len7nrbdLkAkKI3uOK91tAIBUfqPmRH0tyu12jy06xRptbbM0kCZSJdLgUACBncDjgnpiL76N6UCsVdecqEugZx0G4/7CKIo4MvIja1um+R2+i25eRn9KwMiWSQSFv5CRvvQ9wAA2PFc91/BptZ7k4aMzeqTWAdhRhBG8dU7c9fhuzGc3LRJ+3qy/SqigJfaPVJylaT0Uk+RH/wB8xfZOT0mlaizPt3ZWi+y6l5Ki0r3gcgn9j5iIjWau0i4rol56kTfjsIkkNKV4Ske0FrOMKAPQiJ5cMHolzdIcDsA67H37KnpOXm/xgieXvYWmy9mmnDwaGx8dlR4R1hP3/wAoYT9/8o5C+tVisCz5+76muWlnEsS7ICpiYUNwbBzgAZ5JwcD4GLqnTK1qipyRod5Mv1JCSfDKkLCiPgk5x5kZxHWkp8LTC8HmllLgYdIWOCMMqI+kZlRZ2cplUYnqZMKanGlZaUlAUQSMdCCDwTHWa3HgijMjNWqyd+BdbL5WR+fn5WQ2Cb0xFQaKBBJF26wTXbbsuanS52nVh6kzTChNsu+EpCecq7Y888Y88xo8tpfSKbT5d27rnYpk1MJylgLQnafLco+1jjOBgeZ6xVaLPT9W1LpM9V3lOzrtSlfFUpoIJwtAHAAA4A7RNa/KUu/ilazhEo2EDHQcn+ZMQhjhZE+Yt1UaAP70rcyfNmyocNsnpksLnFovcUKFjizzVqL1DsaZtUS84zNon6XM4DMygAckZCSMnqBkEcHETNA0+o05aUhctYuI0+WfWUupUgAD21IASonqSAenTMSdSPi+jnT1OrKyl/CVHnGH1gflxHluYD9QFvDdx9oK5x8X40/w8DJHP02NAcBZ2Jpc7/Ec2WCOL1af6xjLgBZADt6IIBNBe46SUWXrH2dOXOpD02FGQZS2PEUEjKirzxzwMZA+Qy+4aW/Ra3OUqYUFOSrpbKh0UB0I/EYPzjZrkx+ui0fa59SH/uxm2rgT+sasZVj9qnt+4mI9Rx4WRkxtqnVz2q1Z+Hs/MmnazIk1h0ergCiHadqHcc/FVOEdYT9/8oRxV9kuY0PQ3UhvTetT8+7SlVFE5LhkoS94ZThWc5wcxnkI8IBFFeg0v1CfSrlP8HTH+tH/AMIg3tfbSeeW65p0StZKlH1wck/+CPz1CK/Sapayv08x6U0gwyhlqzH0NtpCUpE6OAOn/JGc666vNalU+mybNDXTRJvLdKlTAc3lQAxgAY6Rk8I9ETQbC8LiUhCEWKKuumlXtKVZnaXdlOYcYmRlqcLG9bJwQRkAqHbBT0P5Wy3zpXalTRXZO4J+dmWkK8FopKuqSDwEJ5wSPaIHMY9CN0Oe6JrRoaS3gkb/AN1w83oTMp73es9of+ZoIo7V3BqxzVKeqtyPzd8LuhppKHROJmGm1cgBJG1Jx14ABjRK5P6YXo+zWarVJylzqWgl9lKSCoDsTsUFHyIOcfljsIjFmvZqDgHBxsg+fKtyuiwzGN0bnRuYKBaaNeNwbGy0DVK76ZWm6dQ7fbWmk05OEKUkp3kJ2pwDzgJ8+TkxcrUdozWhMsmvocVTXVrbeLfvIy+oJWPwVg/LoekYe374i1qvQnTdNm/ZwwF7vWvG/ib8bNvy6xpx8/8AmySy1ZaQNtu1CvC5vUOhf8LBi4wNNka4m/dW9uvzZv8AZXej1nTyxKfOT1v1F+rVJ9va2lwHdjsnO1ISnOCc88RVdDlKXqVKLWoqUpt4knqTsMUWJyxrgNsXGxWBKet+ElafC8TZnckjrg+flEGZ2uaIuAa1p4Hz3Pcq6bonpYeS2NzpJJWkW4izsQB2AG60q4ZfTGq3bPTtZqM1T51iZU3NSwyG3ig7d2Qk+8Bzgg/Pk0/V67ZW6K2wmmpUKfJILbKlDb4hONysdhwAB8PkKvcFQ+1q7PVTwfB9bmFveHu3bdxJxnAz18o8MRyc8yBzGtABNkgbnxan03oTMd0c0j3OcxtAEghtjetvpuTstUt66bUuGyZa17yddklyW0S8y2CchIISQQDghPBBGD169PpULls20rSnqNZz71QnJ8KQ7MOAgoBBGSdqQcAnAA75PxyeEB1KQNqhqqtVb0h/DeMZCdbtBdq0X7bu+Kur3q6tXPRyuUu37tXPVea9WlzKrbC/DUv2iUkDCQT2MV255lmcuWqTksvxGH5x5xtWCNyVLJBweRwYjoRldO4xCLsDf3XUZgxsy3ZQJ1OAHwoX/r5SL5o7dlNtqoT8vWErElPtpStxKSrYU7sZA5wQpXTJ6RQ4R5jzugkEjOQvc/Cizsd2PL+V3jnyPsVfrmp2l7dIm36HXqi9PhOZdhaFhBORxktDjGepibpUs5X9AXJKQQp6ap00pamkj2jhZWcDv7KyflGTROWbdVXtSfXNUtxG1wBLzLgy24B0yOuRnggg/UxshzGeqS9oa0gg6fj33K5OX0if+GaIpS97Hh41kcjtYA2Iv6q0yepMm5b8jTa7aspV3pBARLvOuADAwBkFJ7AZ55xH1TqFLVq/bfrNVlk01inpUl5aVqdCiUn2gAnI57cx4Luv2m3DR5mVVZ9PlZ9/b/XkKSXEkKCjj2M84I97vFEiU2dIxwayTUBR4rji+/6qvD6LjzMc+WAxOOofm1UHDct3LRdnt8aWr0S77eltTrjrL1Q2yM5KluXd8Fw71exxgJyPdPUCIKi1+ky+jtZt96b21KZnA4yz4ajuTlnncBtHuK6ntFFhFR6hIb2H9X/tz3+y1DoGMK9ztjGe3/T/AC9u/f8ASlJ2nMTspc1MmKckrm0zTfhIzjeoqA2/gc4+cat6Rla2y8hQGl8qPrT4+AylA+u4/IRl1m1lq37jlaw7Iie9WKlJaLmwFRBAOcHpnPTtH9vCvP3LX5ysPt+CXikIaCtwbSAABnjy8upMShyRFhvjB3cRt8PP14VWX012T1eHIcz2RtO+27idhXO3N+V8bVrD1v3DJ1iXQHFyzm7YTjckghQz2yCRmNOrbmlV1zwr0/WJynzLiUmYYSCkqIGORsVk4AGUnt5xj0IqgzHRMMZaHNO9Hz5WvO6QzLmbO17mPAq2kAkc0bBFXur5qxd9Or32fSKE2tulU5G1sqSU7zgJGAeQkJGBnnk8RH6QzE7L6h0r1FJWp1wtuozgFspO8n8BlX4pEVOLJp5c7Vp1pyqLpgn3CyWm0l7w9mSMqztPOBj5mJMyTLlNmlNbj6V4VU3Tm43S34mMzV7SACeSb5JrubKtXpC1r1y5ZejNLy3INbnB/EXg/knb9TEPozXaVb11vT1XmvVpdUmtoL8NS/aKkEDCQT0BiqVqoP1WrzdSmT+1mXlOqGeASc4HwHSPJHsua45ZyBzdj9l5jdFjZ0pvT3mhpo15PJHPda8v9UtUrrlxTNVmmHC+XXZRaFeG4rPKsbCSFHnAPfoOkU/Va6WbruUTUmhaZOXaDLG8YK+SSojtkn6ARUYR5NnOlYWaQLNmhyvcPocWLO2YyOeWim6jYaPhsPubWryVxWfeFqSFIu+aeps9TgEMzDYJ3pCQM52kDIAyD3AI+HiuGoaeUO1Zmj26wis1CZyPXJmXClM5GCQspHIHTb35z55rCJO6g9zd2jVVXW9f2+tKtn4fhjktsjwy9Wi/bd34ur3q6V60Vr9Jt25JucrE36sw5JqbSrw1Lyreg4wkE9AYpc8tLk6+4g5SpxSknzBMfGEZnzudE2I8Nv8AVdKLBjiyZMkE6ngA+PbdV9100tbTqHG1FK0KCkkdiI2Ks1rTu+5CTna/UZik1Jhva4ltJBx1Kc7VBSc5I78xjcInj5ToA5tAg8g/BUdQ6WzNcyTW5j2XRaaO/I3BFH5LXLsuqzF6XP21QJp1Km1IQwy40vcsJdClLKsY55V1HXoOkQOlt3UukyM/btwtqNIqGStxIJLainacgc4IA5HIIHyoMIud1GUytloAgVVbV4pZY/w9isxX4xc4h7tVk+4O23Brmxa1mQZ0jt15VSFSmK24EHw5V5oOpOf3SgJz/mOPnGYVeabnqpNTjUq1KNvOqWhhpICGwTwkAAcAcR5YRTPk+q0NDQ0DwteD00Yr3SOkc9x2tx7DsAAB+i0G27io8npBWaFMzmyozT6lss+Es7hhvncBtHunqe0Z9HSvcT845iE07pQ0H+kUrsTCjxXSOYT73ajfmgNvhstJsK6rfftB+y7tLjEiolTEy2CdmVbscAkEK5BwRyQeOvuYe0rtSVmZiUcVck64ja0zNMhxCT26oCU84yeT5d4yiEaWdQe1oBaCQKBI3A/t+i5sv4fhkke5sj2tebc0GgT3PFi+9EWrZpZWafRr4l6nVXxLSyUOhS0tqUElSSBwkE9T5REXjOS9Quuqz0o54kvMTbjjS9pG5JUSDg8j5xFQjMZ3GIRdrtdJuDG3LOUCdRaG/CgSfvv5Wiay3LRbglqEikTvrKpVpxL37JaNpIbx7wGfdPSJG3rotS4rKlrWvF12SXJbUy8y2DyEghJBAOCE8EEYPXr0yqEaP8Qk9Z0pAOoUR2K5/wDl/H/hI8ZrnDQSWuBGoEknmq7kccLW37jsqzbWqNMtGbmajUJ9JQp9YPscEAlW1I4ClEAA89Yp2mF1i0ri9ceaU9KPt+DMJT7wTkHcPMjHTvzFVhHj8+Qva9tN08AcBTh6HjsglhkJf6n5i47nsOK47VwtaEho+ipfbP23MKa8TxRJeGot5znbt8Pdt+BPzxFCvqrU2s3C7NUilsU2RSkNstNNJb3AZ9pQTxuOfpgdogoRGfLMrdIYGjnYKeF0kYsvqule81Q1G6HyAG/xNlXjRypWxTK7MvXIhkBTIEs4814iEKzzxg4JHQ/AjvEJf0zRpy7p+ZoDaW6ctSfCCG9ifdAUQnAwCrJxEFCIOyXOgENCgbvurmdOYzNdmBzrcKq/b8wPP/3yrzpPd8lbsxOU6sMl2lVFIQ8Qnd4ZwRnb3SQcEden4G0UdWk9sVMV+TrM5OPtBSpeXKVK2kjsNg5wcDcfz5jHoRdD1B8TGtLQdPFjhYszoEOTK+QSPZrFODTQdW29g9ttq2U5X7kmqnebtzIQll8zCHmU9dmzAQD54CRmNFq9W03vpuVqVdn5ukVJtrY6hvOSAc4zsUlQyTg8HnmMehEYs17NWoBwduQfPlXZXRYJhH6bnRmMU0tNEDitwbGy0TUy7qLNUGStO1m1fZcoQtTxSU7yAcAA89SSSep/Pz16v0mY0go9AZm91SlpwuPM+GobU5d53EbT76eh7xQ46c98wfnSPc5xr3CvkPh9l5F0THijijaT7Ha7vcu3suNb3fwWq1y77emdTrcrLNQ3yEnKhuYd8FwbFe3xgpyfeHQd4pGo1Rk6tetSqNPe8aVfcSW17SncAhI6EA9RFfhHk+bJM0tcBub+tUpYXRoMORr4ySWt0b1xerxzf+yQhCMi6yQhCCJCEIIkIQgiQhCCJCEIIkIQgi6b98RzCEESEIQRIQhBEhCEESEIQRIQhBEhCEESEIQRIQhBEjpPuK+UIQRcwhCCJCEIIkIQgiQhCCJCEIIkIQgiQhCCJCEIIkIQgi6V7ifnHMIQRIQhBEhCEESEIQRIQhBEhCEESEIQRIQhBEhCEESOnPfMIQRcwhCCJCEIIv/Z" alt="support@mycyberdefence.com" style="height:20px;vertical-align:middle;"></div>
+    </div>
+    <div class="footer-social">
+      <a href="#" class="social-btn">f</a>
+      <a href="#" class="social-btn">ig</a>
+      <a href="#" class="social-btn">yt</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 МійКіберЗахист — ALL RIGHTS RESERVED</div>
+    <div class="footer-copy">ФОП Браілов Богдан Сергійович · РНОКПП 2913621779</div>
+  </div>
+</footer>
+
+<!-- ============================================ -->
+<!-- 📜 МОДАЛЬНІ ВІКНА (для майбутнього          -->
+<!--    використання якщо потрібно)              -->
+<!-- ============================================ -->
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><scr
